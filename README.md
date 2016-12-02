@@ -1,1 +1,2 @@
-# projet6_kivy
+# projet6_kivy 
+m2 isi
