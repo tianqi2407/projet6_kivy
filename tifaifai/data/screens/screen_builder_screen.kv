@@ -1,0 +1,10 @@
+
+<ScreenBuilderScreen>
+    BoxLayout:
+        Button:
+            text: "ScreenBuilderScreen"
+        Button:
+            text: "Back"
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'wallBuilder'
