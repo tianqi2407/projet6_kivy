@@ -4,6 +4,7 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.actionbar import ActionBar
+from kivy.properties import NumericProperty
 
 __all__ = ('WallBuilderScreen', 'ScreenBuilderScreen')
 
@@ -26,6 +27,7 @@ class RootWidget(BoxLayout):
     manager = ScreenManager()
     manager.add_widget(WallBuilderScreen(name='wallBuilder'))
     manager.add_widget(ScreenBuilderScreen(name='screenBuilder'))
+    hue = NumericProperty(0)
 
     def showcase_anchorlayout(self, layout):
 
