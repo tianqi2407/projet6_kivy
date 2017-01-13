@@ -72,7 +72,7 @@ class RootWidget(TabbedPanel):
 class MainApp(App):
     def build(self):
         self.available_screens = sorted([
-            'WallBuilderScreen', 'ScreenBuilderScreen', 'TopBar'])
+            'WallBuilderScreen', 'ScreenBuilderScreen'])
         return RootWidget().manager
 
 

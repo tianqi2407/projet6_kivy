@@ -1,31 +1,17 @@
 
 <WallBuilderScreen>
     BoxLayout:
+        anchor_x: 'Top'
         size_hint_y: None
         height: '48dp'
 
+        Button:
+            pos: root.x, root.height / 2
+            text: "WallBuilderScreen"
 
         Button:
-            id: azert
-            text: "WallBuilderScreen"
-            group: 'topBar'
-        Button:
+            pos: root.width - 100, root.height / 2
             text: "Add screen"
-            group: 'topBar'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'screenBuilder'
-AnchorLayout:
-    height: '64dp'
-    anchor_y = 'center'
-
-    Label:
-        text: 'This is a label fit to the content view'
-        text_size: self.width, None
-
-    Button:
-        text: 'A button, what else?'
-
-    Label:
-        text: 'This is a label fit to the content view'
-        text_size: self.width, None
