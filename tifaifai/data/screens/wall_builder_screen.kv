@@ -1,17 +1,23 @@
 
 <WallBuilderScreen>
-    BoxLayout:
-        anchor_x: 'Top'
-        size_hint_y: None
-        height: '48dp'
+	
+    ActionBar:
+    	pos_hint: {'top':1}
+    	
+    	ActionView:
+    		use_separator: True
+        	ActionOverflow:
+			ActionButton:
+		        #size_hint_x: 0.17
+		        #size_hint_y: None
+		        #pos_hint: {'x': 0}
+		        text: "WallBuilderScreen"
 
-        Button:
-            pos: root.x, root.height / 2
-            text: "WallBuilderScreen"
-
-        Button:
-            pos: root.width - 100, root.height / 2
-            text: "Add screen"
-            on_press:
-                root.manager.transition.direction = 'left'
-                root.manager.current = 'screenBuilder'
+		    ActionButton:            
+		        #size_hint_x: 0.17
+		        #pos_hint: {'top': 1}
+		        text: "Add screen"
+		        on_press:
+		            root.manager.transition.direction = 'left'
+		            root.manager.current = 'screenBuilder'
+		            		

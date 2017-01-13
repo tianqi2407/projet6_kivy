@@ -1,6 +1,9 @@
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.tabbedpanel import TabbedPanel
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.actionbar import ActionBar
 
 __all__ = ('WallBuilderScreen', 'ScreenBuilderScreen')
 
@@ -9,33 +12,6 @@ from kivy.lang import Builder
 
 Builder.load_file('data/screens/wall_builder_screen.kv')
 Builder.load_file('data/screens/screen_builder_screen.kv')
-
-# Builder.load_string('''
-# <RootWidget>
-#     manager: manager
-#     do_default_tab: False
-#
-#     ScreenManager:
-#         id: manager
-#         Screen:
-#             id: wallBuilder
-#             name: 'wallBuilder'
-#             BoxLayout:
-#                 Button:
-#                     text: "POMME DE PIN"
-#         Screen:
-#             id: screenBuilder
-#             name: 'screenBuilder'
-#             BoxLayout:
-#                 Button:
-#                     text: "Screen Builder"
-#     TabbedPanelHeader:
-#         text: wallBuilder.name
-#         screen: wallBuilder.name
-#     TabbedPanelHeader:
-#         text: screenBuilder.name
-#         screen: screenBuilder.name
-# ''')
 
 
 class ScreenBuilderScreen(Screen):
@@ -46,16 +22,10 @@ class WallBuilderScreen(Screen):
     title = "Wall Builder"
 
 
-class RootWidget(TabbedPanel):
+class RootWidget(BoxLayout):
     manager = ScreenManager()
     manager.add_widget(WallBuilderScreen(name='wallBuilder'))
     manager.add_widget(ScreenBuilderScreen(name='screenBuilder'))
-
-    # def switch_to(self, header):
-    #     self.manager.current = header.screen
-    #     self.current_tab.state = "normal"
-    #     header.state = 'down'
-    #     self._current_tab = header
 
     def showcase_anchorlayout(self, layout):
 
@@ -71,8 +41,7 @@ class RootWidget(TabbedPanel):
 
 class MainApp(App):
     def build(self):
-        self.available_screens = sorted([
-            'WallBuilderScreen', 'ScreenBuilderScreen'])
+        self.available_screens = sorted(['WallBuilderScreen', 'ScreenBuilderScreen'])
         return RootWidget().manager
 
 
