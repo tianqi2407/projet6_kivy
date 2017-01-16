@@ -1,23 +1,27 @@
 
-<WallBuilderScreen>
-	
-    ActionBar:
-    	pos_hint: {'top':1}
-    	
-    	ActionView:
-    		use_separator: True
-        	ActionOverflow:
-			ActionButton:
-		        #size_hint_x: 0.17
-		        #size_hint_y: None
-		        #pos_hint: {'x': 0}
-		        text: "WallBuilderScreen"
+#:import random random.random
+<WallBuilderScreen>    	
+	hue: random()
+    canvas:
+        Color:
+            hsv: self.hue, .5, .3
+        Rectangle:
+            size: self.size
 
-		    ActionButton:            
-		        #size_hint_x: 0.17
-		        #pos_hint: {'top': 1}
-		        text: "Add screen"
-		        on_press:
-		            root.manager.transition.direction = 'left'
-		            root.manager.current = 'screenBuilder'
+    Label:
+        font_size: 42
+        text: root.name
+	
+	Button:
+		size_hint: None, None
+		pos_hint: {'top': 1 ,'right': 1}
+		text: "WallBuilderScreen"
+
+	Button:            
+		size_hint: None, None
+		pos_hint: {'right': 1}
+		text: "Add screen"
+		on_press:
+		    root.manager.transition.direction = 'left'
+		    root.manager.current = 'screenBuilder'
 		            		
