@@ -24,7 +24,8 @@ RootWidget:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'left': 1}
 				text: "Back"
-				font_size: '30sp'
+				#font_size: '30sp'
+				height: 40
 				on_release: 
 					app.next_screen('wall')
 	
@@ -40,7 +41,9 @@ RootWidget:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'right': 1}
 				text: "Validate"
-				font_size: '20sp'
+				height: 40
+				on_release: 
+					app.next_screen('scenary')
 
 		BoxLayout:
 			
