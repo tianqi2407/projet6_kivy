@@ -1,0 +1,38 @@
+BoxLayout:
+	name: "Wall builder"
+	BoxLayout:
+		anchor_x: 'center'
+		anchor_y: 'top'
+		        
+		Button:
+			size_hint: None, None
+			pos_hint: {'top': 1 ,'left': 1}
+			text: "Back"
+			font_size: '30sp'
+	
+		Label:
+			#pos_hint: {'top': 1 ,'left': .5}
+			text: "Build a Wall"
+			font_size: '40sp'
+			text_size: self.size
+			halign: 'center'
+			valign: 'top'
+	
+		Button:
+			size_hint: None, None
+			pos_hint: {'top': 1 ,'right': 1}
+			text: "Validate"
+			font_size: '20sp'
+
+	BoxLayout:
+		anchor_x: 'center'
+		anchor_y: 'bottom'
+	
+		Button:            
+			size_hint: None, None
+			pos_hint: {'right': 1}
+			text: "Add screen"
+			#font_size: '20sp'
+			on_release: 
+				app.next_screen('screen_builder_screen')
+	
