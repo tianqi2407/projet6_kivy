@@ -1,0 +1,20 @@
+#:import random random.random
+<ScreenBuilderScreen>
+	hue: random()
+
+	Label:
+		font_size: 42
+		text: root.name
+
+	Button:
+		size_hint: None, None
+		pos_hint: {'top': 1 ,'right': 1}
+		text: "ScreenBuilderScreen"
+
+	Button:            
+		size_hint: None, None
+		pos_hint: {'right': 1}
+		text: "Back"
+		on_press:
+			root.manager.transition.direction = 'right'
+			root.manager.current = 'wallBuilder'
