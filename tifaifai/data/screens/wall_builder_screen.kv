@@ -1,5 +1,6 @@
 <WallBuilderScreen>   
 
+<<<<<<< HEAD
 	BoxLayout:
 		anchor_x: 'center'
 		anchor_y: 'top'
@@ -44,3 +45,31 @@
 	Label:
 		font_size: 42
 		text: root.name
+=======
+#:import random random.random
+<WallBuilderScreen>    	
+	hue: random()
+    canvas:
+        Color:
+            hsv: self.hue, .5, .3
+        Rectangle:
+            size: self.size
+
+    Label:
+        font_size: 42
+        text: root.name
+	
+	Button:
+		size_hint: None, None
+		pos_hint: {'top': 1 ,'right': 1}
+		text: "WallBuilderScreen"
+
+	Button:            
+		size_hint: None, None
+		pos_hint: {'right': 1}
+		text: "Add screen"
+		on_press:
+		    root.manager.transition.direction = 'left'
+		    root.manager.current = 'screenBuilder'
+		            		
+>>>>>>> a78890ca376520abd17ff107f3067c7ce2a3df5a
