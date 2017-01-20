@@ -22,7 +22,10 @@ RootWidget:
             size_hint: 1, 0.1
 
             # weiter button
+			Button:
+				text: 'add (media)'
+			Button:
+				text: 'Previous screen'
             Button:
-                size_hint: 0.2, 1
-                text: 'next'
+                text: 'Next screen'
                 on_release: app.next_screen('wall')

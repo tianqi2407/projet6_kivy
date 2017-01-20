@@ -1,16 +1,39 @@
-BoxLayout:
-	Label:
-		font_size: 42
-		text: root.name
+#:kivy 1.8.0
+#:import datetime datetime
 
-	Button:
-		size_hint: None, None
-		pos_hint: {'top': 1 ,'right': 1}
-		text: "ScreenBuilderScreen"
+RootWidget:
+    # import container
+    container: container
 
-	Button:            
-		size_hint: None, None
-		pos_hint: {'right': 1}
-		text: "Back"
-		on_release: 
-			app.next_screen('wall_builder_screen')
+    # fill the container
+    
+    BoxLayout:
+	
+    	id: container
+    	name: "Screen builder"
+		orientation: 'vertical'
+		padding: 0
+		spacing: 6
+		
+		
+
+		Button:
+			text: 'Screen size'
+		TextInput:
+			text: 'screen s size'
+		Button:
+			text: 'Previous screen'
+		Button:
+			text: 'Previous screen'
+
+		Button:
+			size_hint: None, None
+			pos_hint: {'top': 1 ,'right': 1}
+			text: "ScreenBuilderScreen"
+
+		Button:            
+			size_hint: None, None
+			pos_hint: {'right': 1}
+			text: "Back"
+			on_release: 
+				app.next_screen('wall_builder_screen')
