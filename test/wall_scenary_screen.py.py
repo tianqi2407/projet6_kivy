@@ -15,10 +15,12 @@ Builder.load_string('''
             id: wall
             name: 'wall'
             BoxLayout:
-				size_hint: .5, None
+				size_hint: 1.0, None
 				height: 40
 				pos_hint: {'center_x': .5}
-				orientation: 'vertical'
+				orientation: 'horizontal'
+				Button:
+					text: 'back'
 				Button:
 					text: 'validate'
 
