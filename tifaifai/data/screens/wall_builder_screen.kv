@@ -1,25 +1,46 @@
+<WallBuilderScreen>   
 
-#:import random random.random
-<WallBuilderScreen>    	
-	hue: random()
-    canvas:
-        Rectangle:
-            size: self.size
-
-    Label:
-        font_size: 42
-        text: root.name
+	BoxLayout:
+		anchor_x: 'center'
+		anchor_y: 'top'
+		canvas:
+            Color:
+                rgb: 1, 0, 0
+            Rectangle:
+                size: self.size
+                
+		Button:
+			size_hint: None, None
+			pos_hint: {'top': 1 ,'left': 1}
+			text: "Back"
+			font_size: '30sp'
+		
+		Label:
+			#pos_hint: {'top': 1 ,'left': .5}
+			text: "Build a Wall"
+			font_size: '40sp'
+			text_size: self.size
+			halign: 'center'
+			valign: 'top'
+		
+		Button:
+			size_hint: None, None
+			pos_hint: {'top': 1 ,'right': 1}
+			text: "Validate"
+			font_size: '20sp'
 	
-	Button:
-		size_hint: None, None
-		pos_hint: {'top': 1 ,'right': 1}
-		text: "WallBuilderScreen"
-
+<BottomBar>	
 	Button:            
 		size_hint: None, None
 		pos_hint: {'right': 1}
 		text: "Add screen"
+		font_size: '20sp'
 		on_press:
-		    root.manager.transition.direction = 'left'
-		    root.manager.current = 'screenBuilder'
-		            		
+			root.manager.transition.direction = 'left'
+			root.manager.current = 'screenBuilder'
+	
+<CenterField>
+
+	Label:
+		font_size: 42
+		text: root.name

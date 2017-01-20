@@ -4,7 +4,6 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.actionbar import ActionBar
-from kivy.properties import NumericProperty
 
 __all__ = ('WallBuilderScreen', 'ScreenBuilderScreen')
 
@@ -23,11 +22,13 @@ class WallBuilderScreen(Screen):
     title = "Wall Builder"
 
 
+class Ecrans():
+	pass
+
 class RootWidget(BoxLayout):
     manager = ScreenManager()
     manager.add_widget(WallBuilderScreen(name='wallBuilder'))
     manager.add_widget(ScreenBuilderScreen(name='screenBuilder'))
-    hue = NumericProperty(0)
 
     def showcase_anchorlayout(self, layout):
 
@@ -42,9 +43,12 @@ class RootWidget(BoxLayout):
 
 
 class MainApp(App):
-    def build(self):
-        self.available_screens = sorted(['WallBuilderScreen', 'ScreenBuilderScreen'])
-        return RootWidget().manager
+	def build(self):
+		self.available_screens = sorted(['WallBuilderScreen', 'ScreenBuilderScreen'])
+		
+		#topBar = AnchorLayout(anchor_x='center', anchor_y='top')
+		#topBar.add_widget(WallBuilderScreen(name='wallBuilder'))
+		return RootWidget().manager
 
 
 if __name__ == '__main__':
