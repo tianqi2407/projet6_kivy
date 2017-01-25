@@ -1,0 +1,54 @@
+#:kivy 1.8.0
+#:import datetime datetime
+
+RootWidget:
+    # import container
+    container: container
+
+    # fill the container
+    
+
+	GridLayout: 
+		size_hint: .5, None
+		height: 100
+		pos_hint: {'center_x': .5}
+		cols: 3 
+
+		Label:   
+			text: 'height :'
+		TextInput:
+			id: hauteur
+			size_hint_y: 0.30
+		Label:
+			text: 'cm'
+			
+		Label:   
+			text: 'width :'
+		TextInput:
+			id: largeur
+			size_hint_y: 0.30
+		Label:
+			text: 'cm'
+    
+    BoxLayout:
+	
+    	id: container
+    	name: "Screen builder"
+		orientation: 'vertical'
+		padding: 0
+		spacing: 6
+		
+
+		Button:
+			size_hint: None, None
+			pos_hint: {'top': 1 ,'right': 1}
+			text: 'Validate'
+			on_release: 
+				print hauteur.text, largeur.text
+
+		Button:            
+			size_hint: None, None
+			pos_hint: {'right': 1}
+			text: "Back"
+			on_release: 
+				app.next_screen('wall_builder_screen')
