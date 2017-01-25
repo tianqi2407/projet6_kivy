@@ -15,6 +15,13 @@ from kivy.properties import ObjectProperty
 import os
 import kivy
 kivy.require('1.8.0')
+from kivy.core.window import Window
+
+Window.size = (1120, 630)
+
+
+class Ecrans():
+	pass
 
 
 class RootWidget(BoxLayout):
@@ -23,6 +30,7 @@ class RootWidget(BoxLayout):
     '''
 
     container = ObjectProperty(None)
+
 
 
 class MainApp(App):
@@ -35,7 +43,10 @@ class MainApp(App):
         :rtype: none
         '''
         # loading the content of root.kv
+        
         self.root = Builder.load_file('kv/root.kv')
+        Builder.load_file('kv/wall_builder_screen.kv')
+        Builder.load_file('kv/screen_builder_screen.kv')
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
