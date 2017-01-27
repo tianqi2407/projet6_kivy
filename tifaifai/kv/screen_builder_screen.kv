@@ -9,10 +9,21 @@ RootWidget:
     
 
 	GridLayout: 
-		cols: 3 
+		size_hint: .5, None
+		height: 100
+		pos_hint: {'center_x': .5}
+		cols: 3
+
+		Label:
+			text: 'Label :'
+		TextInput:
+			id: label
+			size_hint_y: 0.30
+		Label:
+			text: 'Displayed size'
 
 		Label:   
-			text: 'height :'
+			text: 'Height :'
 		TextInput:
 			id: hauteur
 			size_hint_y: 0.30
@@ -20,7 +31,7 @@ RootWidget:
 			text: 'cm'
 			
 		Label:   
-			text: 'width :'
+			text: 'Width :'
 		TextInput:
 			id: largeur
 			size_hint_y: 0.30
@@ -39,9 +50,9 @@ RootWidget:
 		Button:
 			size_hint: None, None
 			pos_hint: {'top': 1 ,'right': 1}
-			text: 'Validate information'
-			on_release: 
-				print hauteur.text, largeur.text
+			text: 'Save'
+			on_release:
+				app.save_screen(label.text, hauteur.text, largeur.text)
 
 		Button:            
 			size_hint: None, None

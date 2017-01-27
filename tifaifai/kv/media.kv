@@ -1,0 +1,67 @@
+#:kivy 1.8.0
+#:import datetime datetime
+
+RootWidget:
+    # import container
+    container: container
+
+    # fill the container
+
+    BoxLayout:
+
+    	id: container
+		name: "Media"
+        orientation: 'vertical'
+        padding: 0
+        spacing: 6
+
+		BoxLayout:
+			anchor_x: 'center'
+			anchor_y: 'top'
+
+			Button:
+				size_hint: None, None
+				pos_hint: {'top': 1 ,'left': 1}
+				text: "Back"
+				#font_size: '30sp'
+				height: 40
+				on_release:
+					app.next_screen('wall')
+
+			Label:
+				#pos_hint: {'top': 1 ,'left': .5}
+				text: "Media"
+				font_size: '40sp'
+				text_size: self.size
+				halign: 'center'
+				valign: 'top'
+
+			Button:
+				size_hint: None, None
+				pos_hint: {'top': 1 ,'right': 1}
+				text: "Validate"
+				height: 40
+				on_release:
+					app.next_screen('scenary')
+
+		BoxLayout:
+
+            size_hint: .5, None
+			height: 100
+			pos_hint: {'center_x': .5}
+			#orientation: 'vertical'
+
+
+			BoxLayout:
+				Button:
+					text: 'media1'
+				Button:
+					text: 'media2'
+				Button:
+					text: 'media3'
+
+			Button:
+				text: "Add media"
+				on_release:
+					app.next_screen('add_media')
+
