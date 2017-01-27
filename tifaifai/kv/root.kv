@@ -17,7 +17,7 @@ RootWidget:
 
             # bottom-left
             BoxLayout:
-                size_hint: 0.12, 0.12
+                size_hint: 0.12, 0.20
                 orientation: 'vertical'
                 padding: 0
                 spacing: 6
@@ -28,11 +28,14 @@ RootWidget:
 					padding: 0
 					spacing: 0
 					Button:
-						text: 'wall'
+						text: 'Wall'
 						on_release: app.next_screen('wall')
 					Button:
-						text: 'scenary'
+						text: 'Scenary'
 						on_release: app.next_screen('scenary')
+					Button:
+						text: 'Media'
+						on_release: app.next_screen('media')
 
             # create container (bottom-right)
             BoxLayout:

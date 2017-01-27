@@ -11,6 +11,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
+import sqlite3
+
 
 import os
 import kivy
@@ -20,8 +22,31 @@ from kivy.core.window import Window
 Window.size = (1120, 630)
 
 
-class Ecrans():
-	pass
+class Wall(BoxLayout):
+    def build(self, wall_name):
+        self.wall_name = wall_name
+
+    def save(self):
+        conn.execute("INSERT INTO WALL (NAME) VALUES ("+self.wall_name+")")
+
+
+class Scenary(BoxLayout):
+    def build(self, wall_id, scenary_name):
+        self.wall_id = wall_id
+        self.scenary_name = scenary_name
+
+    def save(self):
+        conn.execute("INSERT INTO SCENARIO (WALL_ID,NAME) VALUES ("+self.wall_id+", "+self.scenary_name+")")
+
+
+class Screen(BoxLayout):
+    def build(self, displayed, height, width):
+        self.displayed = displayed
+        self.height = height
+        self.width = width
+
+    def save(self):
+        conn.execute("INSERT INTO SCREEN (DISPLAYED_SIZE,HEIGHT,WIDTH) VALUES ("+self.displayed+", "+self.height+", "+self.width+")")
 
 
 class RootWidget(BoxLayout):
@@ -31,6 +56,11 @@ class RootWidget(BoxLayout):
 
     container = ObjectProperty(None)
 
+
+def save_screen(displayed, height, width):
+    screen = Screen()
+    screen.build(displayed, height, width)
+    screen.save()
 
 
 class MainApp(App):
@@ -47,6 +77,8 @@ class MainApp(App):
         self.root = Builder.load_file('kv/root.kv')
         Builder.load_file('kv/wall_builder_screen.kv')
         Builder.load_file('kv/screen_builder_screen.kv')
+        Builder.load_file('kv/media.kv')
+        Builder.load_file('kv/add_media.kv')
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
@@ -72,4 +104,8 @@ class MainApp(App):
 if __name__ == '__main__':
     '''Start the application'''
 
+    conn = sqlite3.connect('data.db')
+    print "Opened database successfully"
     MainApp().run()
+    conn.close()
+    print "Closing database successfully"
