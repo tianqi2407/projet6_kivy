@@ -11,6 +11,11 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
+from kivy.base import runTouchApp
+from kivy.uix.dropdown import DropDown
+import sys
+sys.path.append(".\model")
+from model_wall import *
 
 import os
 import kivy
@@ -23,15 +28,12 @@ Window.size = (1120, 630)
 class Ecrans():
 	pass
 
-
 class RootWidget(BoxLayout):
     '''Create a controller that receives a custom widget from the kv lang file.
     Add an action to be called from a kv file.
     '''
 
     container = ObjectProperty(None)
-
-
 
 class MainApp(App):
 
@@ -43,8 +45,11 @@ class MainApp(App):
         :rtype: none
         '''
         # loading the content of root.kv
-        
         self.root = Builder.load_file('view/root.kv')
+		
+	def get_all_wall_name(self):
+		self.root.spinner.text = model_wall.get_all_wall_name()[0]
+		self.root.spinner.values = model_wall.get_all_wall_name()
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv

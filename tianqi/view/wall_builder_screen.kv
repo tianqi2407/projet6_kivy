@@ -46,21 +46,17 @@ RootWidget:
 		BoxLayout:
 			
             size_hint: .5, None
-			height: 100
+			height: 50
 			pos_hint: {'center_x': .5}
-			#orientation: 'vertical'
+			orientation: 'horizontal'
 			
 			
 			BoxLayout:
-				Button:
-					text: 'ecran1'
-				Button:
-					text: 'ecran2'
-				Button:
-					text: 'eran3'
-			
-			Button:            
-				text: "Add screen"
-				on_release: 
-					app.next_screen('screen_builder_screen')
+				Spinner:
+					id: spinner
+					self: app.get_all_wall_name()
+				Button:            
+					text: "Add screen"
+					on_release: 
+						app.next_screen('screen_builder_screen')
 	
