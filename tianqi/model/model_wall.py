@@ -11,6 +11,7 @@ def get_all_wall_name():
 	   walls.append(row[0]) 
 	   
 	conn.close()
+	print "Operation done successfully";
 	return walls
    
 
@@ -19,5 +20,4 @@ liste = get_all_wall_name()
 
 for x in liste: print x
 
-print "Opened database successfully";\
 

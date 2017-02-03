@@ -54,7 +54,8 @@ RootWidget:
 			BoxLayout:
 				Spinner:
 					id: spinner
-					self: app.get_all_wall_name()
+					values: app.get_all_wall_name()
+					text: app.get_first_wall_name()
 				Button:            
 					text: "Add screen"
 					on_release: 

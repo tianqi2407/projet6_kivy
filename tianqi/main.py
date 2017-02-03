@@ -13,9 +13,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 from kivy.base import runTouchApp
 from kivy.uix.dropdown import DropDown
-import sys
-sys.path.append(".\model")
-from model_wall import *
+import sqlite3
 
 import os
 import kivy
@@ -29,50 +27,75 @@ class Ecrans():
 	pass
 
 class RootWidget(BoxLayout):
-    '''Create a controller that receives a custom widget from the kv lang file.
-    Add an action to be called from a kv file.
-    '''
+	'''Create a controller that receives a custom widget from the kv lang file.
+	Add an action to be called from a kv file.
+	'''
 
-    container = ObjectProperty(None)
+	container = ObjectProperty(None)
 
 class MainApp(App):
 
-    '''This is the app itself'''
+	def build(self):
+		'''This method loads the root.kv file automatically
 
-    def build(self):
-        '''This method loads the root.kv file automatically
-
-        :rtype: none
-        '''
-        # loading the content of root.kv
-        self.root = Builder.load_file('view/root.kv')
+		:rtype: none
+		'''
+		# loading the content of root.kv
+		self.root = Builder.load_file('view/root.kv')	
+		self.wall = Builder.load_file('view/wall_builder_screen.kv')
 		
+	#Get all name of walls 
 	def get_all_wall_name(self):
-		self.root.spinner.text = model_wall.get_all_wall_name()[0]
-		self.root.spinner.values = model_wall.get_all_wall_name()
+	
+		values = []
+		conn = sqlite3.connect('data.db')
+		cursor = conn.execute("SELECT name from WALL")
 
-    def next_screen(self, screen):
-        '''Clear container and load the given screen object from file in kv
-        folder.
+		for row in cursor:
+			values.append(row[0]) 
+		conn.close()
+		
+		print "Operation done successfully";
+		
+		#self.wall.spinner.text = values
+		#self.wall.spinner.values = wall.spinner.values[0]
+		return values
+		
+	#Get first name of walls 
+	def get_first_wall_name(self):
+	
+		values = []
+		conn = sqlite3.connect('data.db')
+		cursor = conn.execute("SELECT name from WALL")
 
-        :param screen: name of the screen object made from the loaded .kv file
-        :type screen: str
-        :rtype: none
-    '''
+		for row in cursor:
+			values.append(row[0]) 
+		conn.close()
+		
+		print "Operation done successfully";
+		return values[0]
 
-        filename = screen + '.kv'
-        # unload the content of the .kv file
-        # reason: it could have data from previous calls
-        Builder.unload_file('view/' + filename)
-        # clear the container
-        self.root.container.clear_widgets()
-        # load the content of the .kv file
-        screen = Builder.load_file('view/' + filename)
-        # add the content of the .kv file to the container
-        self.root.container.add_widget(screen)
+	def next_screen(self, screen):
+		'''Clear container and load the given screen object from file in kv
+		folder.
+
+		:param screen: name of the screen object made from the loaded .kv file
+		:type screen: str
+		:rtype: none
+		'''
+
+		filename = screen + '.kv'
+		# unload the content of the .kv file
+		# reason: it could have data from previous calls
+		Builder.unload_file('view/' + filename)
+		# clear the container
+		self.root.container.clear_widgets()
+		# load the content of the .kv file
+		screen = Builder.load_file('view/' + filename)
+		# add the content of the .kv file to the container
+		self.root.container.add_widget(screen)
 
 
 if __name__ == '__main__':
-    '''Start the application'''
-
-    MainApp().run()
+	'''Start the application'''
+	MainApp().run()
