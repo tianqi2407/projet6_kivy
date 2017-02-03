@@ -11,6 +11,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
+from kivy.uix.behaviors import DragBehavior
 import wall_builder_screen as wbs
 import sqlite3
 import kivy
