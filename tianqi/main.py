@@ -1,12 +1,4 @@
 # -*- coding: utf-8 -*-
-'''
-Container Example
-==============
-
-This example shows how to add a container to our screen.
-A container is simply an empty place on the screen which
-could be filled with any other content from a .kv file.
-'''
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
@@ -36,26 +28,11 @@ class RootWidget(BoxLayout):
 class MainApp(App):
 
 	def build(self):
-		'''This method loads the root.kv file automatically
-
-<<<<<<< HEAD
-		:rtype: none
-		'''
 		# loading the content of root.kv
 		self.root = Builder.load_file('view/root.kv')	
 		self.wall = Builder.load_file('view/wall_builder_screen.kv')
 		
-	#Get all name of walls 
-=======
-    def build(self):
-        '''This method loads the root.kv file automatically
 
-        :rtype: none
-        '''
-        # loading the content of root.kv
-        self.root = Builder.load_file('view/root.kv')
-
->>>>>>> b7b191d3518ef2348e22a80dcbab63fe41436549
 	def get_all_wall_name(self):
 	
 		values = []
