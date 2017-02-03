@@ -2,7 +2,7 @@
 
 import sqlite3
 
-conn = sqlite3.connect( 'data.db' )
+conn = sqlite3.connect( './data/data.db' )
 
 print "Opened database successfully";
 

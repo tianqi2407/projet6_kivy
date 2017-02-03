@@ -66,34 +66,9 @@ class MainApp(App):
         # add the content of the .kv file to the container
         self.root.container.add_widget(screen)
 
-    @staticmethod
-    def get_all_wall_name():
-        values = []
-        conn = sqlite3.connect( 'data.db' )
-        cursor = conn.execute( "SELECT name from WALL" )
-
-        for row in cursor:
-            values.append( row[0] )
-        conn.close( )
-        print ("Operation done successfully")
-        return values
-
-    # Get first name of walls
-    @staticmethod
-    def get_first_wall_name():
-        values = []
-        conn = sqlite3.connect( 'data.db' )
-        cursor = conn.execute( "SELECT name from WALL" )
-
-        for row in cursor:
-            values.append( row[0] )
-        conn.close( )
-        print ("Operation done successfully")
-        return values[0]
-
 if __name__ == '__main__':
     '''Start the application'''
     #wbs.startDB()
-    wbs.openDB()
+    #wbs.openDB()
     MainApp().run()
     wbs.closeDB()

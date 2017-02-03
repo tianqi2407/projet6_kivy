@@ -44,10 +44,33 @@ RootWidget:
 				on_release:
 					app.next_screen('scenary')
 
+        BoxLayout:
+			anchor_x: 'center'
+			anchor_y: 'center'
+            Label:
+                text: spinner.text
+            Label:
+                text: "height = " + wbs.get_height(spinner.text) + " cm"
+            Label:
+                text: "width = " + wbs.get_width(spinner.text) + " cm"
+
 		BoxLayout:
             size_hint: .5, None
 			height: 100
 			pos_hint: {'center_x': .5}
+
+			BoxLayout:
+			    orientation: 'vertical'
+                Button:
+                    text: "Display"
+                    on_release:
+                        app.next_screen('screen_builder_screen')
+                Button:
+                    text: "DELETE"
+                    on_release:
+                        wbs.delete_screen(spinner.text)
+
+
 
 			BoxLayout:
 				Spinner:
