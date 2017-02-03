@@ -64,11 +64,13 @@ RootWidget:
                 Button:
                     text: "Display"
                     on_release:
-                        app.next_screen('screen_builder_screen')
+                        wbs.display_screen(root, spinner.text)
                 Button:
                     text: "DELETE"
                     on_release:
                         wbs.delete_screen(spinner.text)
+                        spinner.values = wbs.get_all_screen_name()
+					    spinner.text = wbs.get_first_screen_name()
 
 
 
