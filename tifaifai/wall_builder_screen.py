@@ -109,11 +109,11 @@ def get_width(name):
 
 def delete_screen(name):
     global conn
-    print("debut du DELETE de lecran "+ name)
-    print("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+
+
+
     conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
-    print("DELETE successful !")
-    conn.commit
+    conn.commit()
 
 ########################################################
 
