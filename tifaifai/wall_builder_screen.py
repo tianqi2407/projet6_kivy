@@ -3,7 +3,7 @@ from kivy.uix.boxlayout import BoxLayout
 import sqlite3
 import os
 
-conn = sqlite3
+conn = sqlite3.connect( './data/data.db' )
 
 
 class Wall(BoxLayout):
@@ -57,20 +57,82 @@ def save_screen(displayed, height, width):
 
 def get_all_screen_name():
     values = []
-    conn = sqlite3.connect( 'data.db' )
+    global conn
     cursor = conn.execute( "SELECT DISPLAYED_SIZE FROM SCREEN" )
 
-    for row in cursor:
-        values.append(row[0])
-    conn.close( )
-    print ("Operation done successfully")
+    if not cursor:
+        values = ''
+    else:
+        for row in cursor:
+            values.append( row[0] )
+        print ("Operation done successfully")
     return values
 
 
 def get_first_screen_name():
     values = []
-    conn = sqlite3.connect( 'data.db' )
+    global conn
     cursor = conn.execute( "SELECT DISPLAYED_SIZE FROM SCREEN" )
+
+    if not cursor:
+        values = ''
+    else :
+        for row in cursor:
+            values.append( row[0] )
+        print ("Operation done successfully")
+    return values[0]
+
+
+def get_height(name):
+    global conn
+    chaine = []
+    cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+    if not cursor:
+        chaine = name
+    else:
+        for row in cursor:
+            chaine.append(row[0])
+    return str(chaine[0])
+
+
+def get_width(name):
+    global conn
+    chaine = []
+    cursor = conn.execute("SELECT width FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+    if not cursor:
+        chaine = name
+    else:
+        for row in cursor:
+            chaine.append(row[0])
+    return str(chaine[0])
+
+
+def delete_screen(name):
+    global conn
+    print("debut du DELETE de lecran "+ name)
+    print("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+    conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+    print("DELETE successful !")
+    conn.commit
+
+########################################################
+
+
+def get_all_wall_name():
+    values = []
+    global conn
+    cursor = conn.execute( "SELECT name from WALL" )
+
+    for row in cursor:
+        values.append( row[0] )
+    conn.close( )
+    print ("Operation done successfully")
+    return values
+
+def get_first_wall_name():
+    values = []
+    global conn
+    cursor = conn.execute( "SELECT name from WALL" )
 
     for row in cursor:
         values.append( row[0] )
@@ -80,10 +142,8 @@ def get_first_screen_name():
 
 ########################################################
 
-
 def openDB():
     global conn
-    conn = sqlite3.connect( 'data.db' )
     print "Opened database successfully"
 
 def closeDB():
@@ -92,4 +152,4 @@ def closeDB():
     print "Closing database successfully"
 
 def startDB():
-    os.system('python tifaifai/data/sql.py')
+    os.system('python ./data/sql.py')
