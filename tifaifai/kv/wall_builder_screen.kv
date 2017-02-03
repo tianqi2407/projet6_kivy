@@ -1,64 +1,63 @@
 #:kivy 1.8.0
 #:import datetime datetime
+#:import wbs wall_builder_screen
 
 RootWidget:
     # import container
     container: container
 
     # fill the container
-    
+
     BoxLayout:
-    	
+
     	id: container
 		name: "Wall builder"
         orientation: 'vertical'
         padding: 0
         spacing: 6
-		
-		
+
+
 		BoxLayout:
 			anchor_x: 'center'
 			anchor_y: 'top'
-				    
+
 			Button:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'left': 1}
 				text: "Back"
 				height: 40
-				on_release: 
+				on_release:
 					app.next_screen('wall')
-	
+
 			Label:
 				text: "Build a Wall"
 				font_size: '40sp'
 				text_size: self.size
 				halign: 'center'
 				valign: 'top'
-	
+
 			Button:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'right': 1}
 				text: "Validate"
 				height: 40
-				on_release: 
+				on_release:
 					app.next_screen('scenary')
 
 		BoxLayout:
             size_hint: .5, None
 			height: 100
 			pos_hint: {'center_x': .5}
-			
+
 			BoxLayout:
-				Button:
-					text: 'ecran1'
-				Button:
-					text: 'ecran2'
-				Button:
-					text: 'ecran3'
-			
-			Button:            
+				Spinner:
+					id: spinner
+					values: wbs.get_all_screen_name()
+					text: wbs.get_first_screen_name()
+
+			Button:
 				text: "Add screen"
-				on_release: 
+				on_release:
 					app.next_screen('screen_builder_screen')
 
         Button:
@@ -67,4 +66,4 @@ RootWidget:
             text: "display screens"
             height: 40
             on_release:
-                app.display()
+                wbs.display_all()

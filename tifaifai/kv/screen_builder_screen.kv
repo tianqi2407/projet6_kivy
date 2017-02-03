@@ -1,5 +1,6 @@
 #:kivy 1.8.0
 #:import datetime datetime
+#:import wbs wall_builder_screen
 
 RootWidget:
     # import container
@@ -52,7 +53,7 @@ RootWidget:
 			pos_hint: {'top': 1 ,'right': 1}
 			text: 'Save'
 			on_release:
-				app.wbs.save_screen(label.text, hauteur.text, largeur.text)
+				wbs.save_screen(label.text, hauteur.text, largeur.text)
 				app.next_screen('wall_builder_screen')
 
 		Button:            

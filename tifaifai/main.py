@@ -13,9 +13,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 import wall_builder_screen as wbs
 import sqlite3
-
-
-import os
 import kivy
 kivy.require('1.8.0')
 from kivy.core.window import Window
@@ -43,20 +40,10 @@ class MainApp(App):
         # loading the content of root.kv
         
         self.root = Builder.load_file('kv/root.kv')
-        Builder.load_file('kv/wall_builder_screen.kv')
-        Builder.load_file('kv/screen_builder_screen.kv')
-        Builder.load_file('kv/media.kv')
-        Builder.load_file('kv/add_media.kv')
-
-    @staticmethod
-    def save_screen(displayed, height, width):
-        screen = wbs.Screen()
-        screen.build(displayed, height, width)
-        screen.save(conn)
-
-    @staticmethod
-    def display():
-        wbs.Screen.display_all(conn)
+        self.wall = Builder.load_file('kv/wall_builder_screen.kv')
+        self.screen = Builder.load_file('kv/screen_builder_screen.kv')
+        self.media = Builder.load_file('kv/media.kv')
+        self.addMedia = Builder.load_file('kv/add_media.kv')
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
@@ -78,12 +65,34 @@ class MainApp(App):
         # add the content of the .kv file to the container
         self.root.container.add_widget(screen)
 
+    @staticmethod
+    def get_all_wall_name():
+        values = []
+        conn = sqlite3.connect( 'data.db' )
+        cursor = conn.execute( "SELECT name from WALL" )
+
+        for row in cursor:
+            values.append( row[0] )
+        conn.close( )
+        print ("Operation done successfully")
+        return values
+
+    # Get first name of walls
+    @staticmethod
+    def get_first_wall_name():
+        values = []
+        conn = sqlite3.connect( 'data.db' )
+        cursor = conn.execute( "SELECT name from WALL" )
+
+        for row in cursor:
+            values.append( row[0] )
+        conn.close( )
+        print ("Operation done successfully")
+        return values[0]
 
 if __name__ == '__main__':
     '''Start the application'''
-
-    conn = sqlite3.connect('data.db')
-    print "Opened database successfully"
+    #wbs.startDB()
+    wbs.openDB()
     MainApp().run()
-    conn.close()
-    print "Closing database successfully"
+    wbs.closeDB()
