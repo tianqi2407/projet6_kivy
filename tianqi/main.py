@@ -4,7 +4,7 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 from kivy.base import runTouchApp
-from kivy.uix.dropdown import DropDown
+from kivy.uix.spinner import Spinner
 import sqlite3
 
 import os
@@ -30,8 +30,7 @@ class MainApp(App):
 	def build(self):
 		# loading the content of root.kv
 		self.root = Builder.load_file('view/root.kv')	
-		self.wall = Builder.load_file('view/wall_builder_screen.kv')
-		
+		#self.wall_builder = Builder.load_file('view/wall_builder_screen.kv')		
 
 	def get_all_wall_name(self):
 	
@@ -45,8 +44,6 @@ class MainApp(App):
 		
 		print "Operation done successfully";
 		
-		#self.wall.spinner.text = values
-		#self.wall.spinner.values = wall.spinner.values[0]
 		return values
 		
 	#Get first name of walls 

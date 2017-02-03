@@ -26,6 +26,10 @@ RootWidget:
 			Button:
 				text: 'add (wall builder)'
 				on_release: app.next_screen('wall_builder_screen')
+            Spinner:
+                id: spinner
+                values: app.get_all_wall_name()
+				text: app.get_first_wall_name()
 			Button:
 				text: 'Previous screen'
             Button:
