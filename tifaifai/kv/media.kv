@@ -23,18 +23,24 @@ RootWidget:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'left': 1}
 				text: "Back"
-				#font_size: '30sp'
 				height: 40
 				on_release:
 					app.next_screen('wall')
 
 			Label:
-				#pos_hint: {'top': 1 ,'left': .5}
 				text: "Media"
-				font_size: '40sp'
 				text_size: self.size
+				font_size: '40sp'
+				size: self.texture_size
 				halign: 'center'
 				valign: 'top'
+				height: 20
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0,1,1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
 
 			Button:
 				size_hint: None, None
@@ -44,24 +50,35 @@ RootWidget:
 				on_release:
 					app.next_screen('scenary')
 
-		BoxLayout:
+        RelativeLayout:
+            canvas:
+                Color:
+                    rgba: 1,1,1,1
+                Rectangle:
+                    size: self.size
 
-            size_hint: .5, None
-			height: 100
-			pos_hint: {'center_x': .5}
-			#orientation: 'vertical'
 
 
-			BoxLayout:
-				Button:
-					text: 'media1'
-				Button:
-					text: 'media2'
-				Button:
-					text: 'media3'
 
-			Button:
-				text: "Add media"
-				on_release:
-					app.next_screen('add_media')
+#		BoxLayout:
+#            size_hint: .5, None
+#			height: 100
+#			pos_hint: {'center_x': .5}
+#			#orientation: 'vertical'
+
+        GridLayout:
+            cols: 8
+            Button:
+                text: 'media1'
+            Button:
+                text: 'media2'
+            Button:
+                text: 'media3'
+
+            Button:
+                size_hint: None, None
+                pos_hint: {'bottom': 1 ,'right': 1}
+                text: "Add media"
+                on_release:
+                    app.next_screen('add_media')
 

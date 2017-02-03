@@ -11,6 +11,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
+import wall_builder_screen as wbs
 import sqlite3
 
 
@@ -22,45 +23,12 @@ from kivy.core.window import Window
 Window.size = (1120, 630)
 
 
-class Wall(BoxLayout):
-    def build(self, wall_name):
-        self.wall_name = wall_name
-
-    def save(self):
-        conn.execute("INSERT INTO WALL (NAME) VALUES ("+self.wall_name+")")
-
-
-class Scenary(BoxLayout):
-    def build(self, wall_id, scenary_name):
-        self.wall_id = wall_id
-        self.scenary_name = scenary_name
-
-    def save(self):
-        conn.execute("INSERT INTO SCENARIO (WALL_ID,NAME) VALUES ("+self.wall_id+", "+self.scenary_name+")")
-
-
-class Screen(BoxLayout):
-    def build(self, displayed, height, width):
-        self.displayed = displayed
-        self.height = height
-        self.width = width
-
-    def save(self):
-        conn.execute("INSERT INTO SCREEN (DISPLAYED_SIZE,HEIGHT,WIDTH) VALUES ("+self.displayed+", "+self.height+", "+self.width+")")
-
-
 class RootWidget(BoxLayout):
     '''Create a controller that receives a custom widget from the kv lang file.
     Add an action to be called from a kv file.
     '''
 
     container = ObjectProperty(None)
-
-
-def save_screen(displayed, height, width):
-    screen = Screen()
-    screen.build(displayed, height, width)
-    screen.save()
 
 
 class MainApp(App):
@@ -79,6 +47,16 @@ class MainApp(App):
         Builder.load_file('kv/screen_builder_screen.kv')
         Builder.load_file('kv/media.kv')
         Builder.load_file('kv/add_media.kv')
+
+    @staticmethod
+    def save_screen(displayed, height, width):
+        screen = wbs.Screen()
+        screen.build(displayed, height, width)
+        screen.save(conn)
+
+    @staticmethod
+    def display():
+        wbs.Screen.display_all(conn)
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv

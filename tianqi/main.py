@@ -38,6 +38,7 @@ class MainApp(App):
 	def build(self):
 		'''This method loads the root.kv file automatically
 
+<<<<<<< HEAD
 		:rtype: none
 		'''
 		# loading the content of root.kv
@@ -45,6 +46,16 @@ class MainApp(App):
 		self.wall = Builder.load_file('view/wall_builder_screen.kv')
 		
 	#Get all name of walls 
+=======
+    def build(self):
+        '''This method loads the root.kv file automatically
+
+        :rtype: none
+        '''
+        # loading the content of root.kv
+        self.root = Builder.load_file('view/root.kv')
+
+>>>>>>> b7b191d3518ef2348e22a80dcbab63fe41436549
 	def get_all_wall_name(self):
 	
 		values = []

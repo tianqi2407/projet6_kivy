@@ -24,13 +24,11 @@ RootWidget:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'left': 1}
 				text: "Back"
-				#font_size: '30sp'
 				height: 40
 				on_release: 
 					app.next_screen('wall')
 	
 			Label:
-				#pos_hint: {'top': 1 ,'left': .5}
 				text: "Build a Wall"
 				font_size: '40sp'
 				text_size: self.size
@@ -46,12 +44,9 @@ RootWidget:
 					app.next_screen('scenary')
 
 		BoxLayout:
-			
             size_hint: .5, None
 			height: 100
 			pos_hint: {'center_x': .5}
-			#orientation: 'vertical'
-			
 			
 			BoxLayout:
 				Button:
@@ -59,10 +54,17 @@ RootWidget:
 				Button:
 					text: 'ecran2'
 				Button:
-					text: 'eran3'
+					text: 'ecran3'
 			
 			Button:            
 				text: "Add screen"
 				on_release: 
 					app.next_screen('screen_builder_screen')
-	
+
+        Button:
+            size_hint: None, None
+            pos_hint: {'center': 1 ,'center': 1}
+            text: "display screens"
+            height: 40
+            on_release:
+                app.display()
