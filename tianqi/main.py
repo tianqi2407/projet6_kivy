@@ -30,7 +30,7 @@ class MainApp(App):
 	def build(self):
 		# loading the content of root.kv
 		self.root = Builder.load_file('view/root.kv')	
-		#self.wall_builder = Builder.load_file('view/wall_builder_screen.kv')		
+		self.wall_builder = Builder.load_file('view/wall_builder_screen.kv')		
 
 	def get_all_wall_name(self):
 	
