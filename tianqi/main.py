@@ -46,7 +46,7 @@ class MainApp(App):
         '''
         # loading the content of root.kv
         self.root = Builder.load_file('view/root.kv')
-		
+
 	def get_all_wall_name(self):
 		self.root.spinner.text = model_wall.get_all_wall_name()[0]
 		self.root.spinner.values = model_wall.get_all_wall_name()

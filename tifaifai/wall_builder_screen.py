@@ -1,57 +1,32 @@
-from kivy.properties import ObjectProperty
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.actionbar import ActionBar
-from kivy.properties import NumericProperty
+import sqlite3
 
-__all__ = ('WallBuilderScreen', 'ScreenBuilderScreen')
+class Wall(BoxLayout):
+    def build(self, wall_name):
+        self.wall_name = wall_name
 
-from kivy.app import App
-from kivy.lang import Builder
-
-Builder.load_file('data/screens/wall_builder_screen.kv')
-Builder.load_file('data/screens/screen_builder_screen.kv')
+    def save(self,conn):
+        conn.execute("INSERT INTO WALL (NAME) VALUES ("+self.wall_name+")")
 
 
-class ScreenBuilderScreen(Screen):
-    title = "Screen Builder"
+class Scenary(BoxLayout):
+    def build(self, wall_id, scenary_name):
+        self.wall_id = wall_id
+        self.scenary_name = scenary_name
+
+    def save(self, conn):
+        conn.execute("INSERT INTO SCENARIO (WALL_ID,NAME) VALUES ("+self.wall_id+", "+self.scenary_name+")")
 
 
-class WallBuilderScreen(Screen):
-    title = "Wall Builder"
+class Screen(BoxLayout):
+    def build(self, displayed, height, width):
+        self.displayed = displayed
+        self.height = height
+        self.width = width
 
+    def save(self, conn):
+        conn.execute("INSERT INTO SCREEN (DISPLAYED_SIZE,HEIGHT,WIDTH) VALUES ('"+str(self.displayed)+"', '"+str(self.height)+"', '"+str(self.width)+"')")
 
-class Ecrans():
-	pass
-
-class RootWidget(BoxLayout):
-    manager = ScreenManager()
-    manager.add_widget(WallBuilderScreen(name='wallBuilder'))
-    manager.add_widget(ScreenBuilderScreen(name='screenBuilder'))
-    hue = NumericProperty(0)
-
-    def showcase_anchorlayout(self, layout):
-
-        def change_anchor(self, *l):
-            if not layout.get_parent_window():
-                return
-            anchor_x = ('left', 'center', 'right')
-            anchor_y = ('top', 'center', 'bottom')
-            if layout.anchor_x == 'left':
-                layout.anchor_y = anchor_y[anchor_y.index(layout.anchor_y) - 1]
-            layout.anchor_x = anchor_x[anchor_x.index(layout.anchor_x) - 1]
-
-
-class MainApp(App):
-	def build(self):
-		self.available_screens = sorted(['WallBuilderScreen', 'ScreenBuilderScreen'])
-		
-		#topBar = AnchorLayout(anchor_x='center', anchor_y='top')
-		#topBar.add_widget(WallBuilderScreen(name='wallBuilder'))
-		return RootWidget().manager
-
-
-if __name__ == '__main__':
-    MainApp().run()
+    @staticmethod
+    def display_all(conn):
+        conn.execute("SELECT * FROM SCREEN")

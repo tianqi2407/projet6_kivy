@@ -10,20 +10,20 @@ BoxLayout:
         on_release:
             app.next_screen('media')
 
-    TabbedPanel:
-
-        tab_pos: "top_right"
-        default_tab_text: "List View"
-        default_tab_content: list_view_tab
-
-
-        TabbedPanelHeader:
-            text: 'Icon View'
-            content: icon_view_tab
-
-        FileChooserListView:
-            id: list_view_tab
-
-        FileChooserIconView:
-            id: icon_view_tab
-            show_hidden: True
+#    TabbedPanel:
+#
+#        tab_pos: "top_right"
+#        default_tab_text: "List View"
+#        default_tab_content: list_view_tab
+#
+#
+#        TabbedPanelHeader:
+#            text: 'Icon View'
+#            content: icon_view_tab
+#
+#        FileChooserListView:
+#            id: list_view_tab
+#
+#        FileChooserIconView:
+#            id: icon_view_tab
+#            show_hidden: True
