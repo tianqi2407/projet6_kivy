@@ -1,5 +1,6 @@
 #:kivy 1.8.0
 #:import datetime datetime
+#:import wal wall
 
 RootWidget:
     # import container
@@ -26,6 +27,10 @@ RootWidget:
 			Button:
 				text: 'add (wall builder)'
 				on_release: app.next_screen('wall_builder_screen')
+			Spinner:
+				id: spinner
+				values: wal.get_all_wall_name()
+				text: wal.get_first_wall_name()
 			Button:
 				text: 'Previous screen'
             Button:

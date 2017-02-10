@@ -1,5 +1,6 @@
 #:kivy 1.8.0
 #:import datetime datetime
+#:import mda media
 
 RootWidget:
     # import container
@@ -18,6 +19,7 @@ RootWidget:
 		BoxLayout:
 			anchor_x: 'center'
 			anchor_y: 'top'
+            size_hint_y: .15
 
 			Button:
 				size_hint: None, None
@@ -25,7 +27,7 @@ RootWidget:
 				text: "Back"
 				height: 40
 				on_release:
-					app.next_screen('wall')
+					app.next_screen('scenary')
 
 			Label:
 				text: "Media"
@@ -41,20 +43,26 @@ RootWidget:
 				text: "Validate"
 				height: 40
 				on_release:
-					app.next_screen('scenary')
+					app.next_screen('wall')
 
 
 		BoxLayout:
-			size_hint: .5, None
+			size_hint_y: .7
 			height: 100
 			pos_hint: {'center_x': .5}
 			orientation: 'vertical'
 
 			FileChooserIconView:
 				id: filechooser
-
-			Button:
-				text: "Add media"
-				on_release:
+				on_selection:
+					mda.selected(filechooser.selection)
 					app.next_screen('add_media')
+			
+			BoxLayout:
+				size_hint_y: .2
+				Button:
+					text: "Add media"
+					on_release:
+						app.next_screen('add_media')
+						
 
