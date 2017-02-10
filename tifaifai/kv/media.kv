@@ -43,35 +43,18 @@ RootWidget:
 				on_release:
 					app.next_screen('scenary')
 
-        RelativeLayout:
-            canvas:
-                Color:
-                    rgba: 1,1,1,1
-                Rectangle:
-                    size: self.size
 
+		BoxLayout:
+			size_hint: .5, None
+			height: 100
+			pos_hint: {'center_x': .5}
+			orientation: 'vertical'
 
+			FileChooserIconView:
+				id: filechooser
 
-
-#		BoxLayout:
-#            size_hint: .5, None
-#			height: 100
-#			pos_hint: {'center_x': .5}
-#			#orientation: 'vertical'
-
-        GridLayout:
-            cols: 8
-            Button:
-                text: 'media1'
-            Button:
-                text: 'media2'
-            Button:
-                text: 'media3'
-
-            Button:
-                size_hint: None, None
-                pos_hint: {'bottom': 1 ,'right': 1}
-                text: "Add media"
-                on_release:
-                    app.next_screen('add_media')
+			Button:
+				text: "Add media"
+				on_release:
+					app.next_screen('add_media')
 

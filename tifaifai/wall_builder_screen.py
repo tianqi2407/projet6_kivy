@@ -108,14 +108,9 @@ def get_width(name):
 
 
 def delete_screen(name):
-    global conn
-
-
-
-    conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
-    conn.commit()
-
-########################################################
+	global conn
+	conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+	conn.commit()
 
 
 def get_all_wall_name():
