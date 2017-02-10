@@ -126,12 +126,11 @@ def display_screen(self, name):
     else:
         for row in cursor:
             chaine.append(row[0])
-    
+
     with self.canvas:
         Color(1.,0,0)
-        Rectangle(size=(150.,100.), pos=(100,100))
-        #float(get_width(name)), float(get_height(name))
-        
+        Rectangle(size=(150.,100.), pos=self.ids.ici.pos)
+
 
 ########################################################
 

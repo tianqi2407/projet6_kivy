@@ -20,7 +20,7 @@ RootWidget:
 		BoxLayout:
 			anchor_x: 'center'
 			anchor_y: 'top'
-
+            size_hint_y: .15
 			Button:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'left': 1}
@@ -45,8 +45,19 @@ RootWidget:
 					app.next_screen('scenary')
 
         BoxLayout:
+            id: ici
+            size_hint_y: .7
+            canvas:
+                Color:
+                    rgba: 1,1,1,1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+        BoxLayout:
 			anchor_x: 'center'
 			anchor_y: 'center'
+			size_hint_y: .15
             Label:
                 text: spinner.text
             Label:
