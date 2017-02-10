@@ -1,5 +1,6 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.graphics import *
+import random
 import sqlite3
 import os
 
@@ -9,7 +10,7 @@ from kivy.uix.popup import Popup
 
 conn = sqlite3.connect( './data/data.db' )
 
-
+############################### Classes ###############################
 class Wall(BoxLayout):
     def build(self, wall_name):
         self.wall_name = wall_name
@@ -127,9 +128,12 @@ def display_screen(self, name):
         for row in cursor:
             chaine.append(row[0])
 
+    x = int(self.ids.ici.x + (random.randint(150, int(self.ids.ici.size[0] - 1)) - 150 ))
+    y = int(self.ids.ici.y + (random.randint(100, int(self.ids.ici.size[1] - 1)) - 100 ))
+
     with self.canvas:
         Color(1.,0,0)
-        Rectangle(size=(150.,100.), pos=self.ids.ici.pos)
+        Rectangle(size=(150.,100.), pos=(x, y))
 
 
 ########################################################
