@@ -5,7 +5,6 @@
 RootWidget:
     # import container
     container: container
-
     # fill the container
 
     BoxLayout:
@@ -47,14 +46,17 @@ RootWidget:
         BoxLayout:
             id: ici
             size_hint_y: .7
+            size_hint_x: .95
             canvas:
                 Color:
                     rgba: 1,1,1,1
                 Rectangle:
+                    id: rectangle
                     size: self.size
                     pos: self.pos
 
         BoxLayout:
+            id: labelledBox
 			anchor_x: 'center'
 			anchor_y: 'center'
 			size_hint_y: .15
@@ -66,6 +68,7 @@ RootWidget:
                 text: "width = " + wbs.get_width(spinner.text) + " cm"
 
 		BoxLayout:
+		    id: footer
             size_hint: .5, None
 			height: 100
 			pos_hint: {'center_x': .5}
@@ -82,9 +85,6 @@ RootWidget:
                         wbs.delete_screen(spinner.text)
                         spinner.values = wbs.get_all_screen_name()
 					    spinner.text = wbs.get_first_screen_name()
-
-
-
 
 			BoxLayout:
 				Spinner:
