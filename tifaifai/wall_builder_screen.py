@@ -1,7 +1,11 @@
-from kivy.properties import NumericProperty
 from kivy.uix.boxlayout import BoxLayout
+from kivy.graphics import *
 import sqlite3
 import os
+
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 
 conn = sqlite3.connect( './data/data.db' )
 
@@ -108,9 +112,28 @@ def get_width(name):
 
 
 def delete_screen(name):
-	global conn
-	conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
-	conn.commit()
+    global conn
+    conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+    conn.commit()
+
+
+def display_screen(self, name):
+    global conn
+    chaine = []
+    cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+    if not cursor:
+        chaine = name
+    else:
+        for row in cursor:
+            chaine.append(row[0])
+    
+    with self.canvas:
+        Color(1.,0,0)
+        Rectangle(size=(150.,100.), pos=(100,100))
+        #float(get_width(name)), float(get_height(name))
+        
+
+########################################################
 
 
 def get_all_wall_name():
