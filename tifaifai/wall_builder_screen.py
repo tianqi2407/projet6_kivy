@@ -131,9 +131,10 @@ def display_screen(self, name):
     x = int(self.ids.ici.x + (random.randint(150, int(self.ids.ici.size[0] - 1)) - 150 ))
     y = int(self.ids.ici.y + (random.randint(100, int(self.ids.ici.size[1] - 1)) - 100 ))
 
+    text = Label(text=str(chaine[0])).texture
     with self.canvas:
-        Color(1.,0,0)
-        Rectangle(size=(150.,100.), pos=(x, y))
+        Color(.5,.5,.5)
+        Rectangle(size=(150.,100.), pos=(x, y), texture= text)
 
 
 ########################################################
