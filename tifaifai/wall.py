@@ -6,25 +6,30 @@ def get_all_wall_name():
 
 	values = []
 	conn = sqlite3.connect('./data/data.db')
-	cursor = conn.execute("SELECT name from WALL")
+	cursor = conn.execute("SELECT name FROM WALL")
 
-	for row in cursor:
-		values.append(row[0]) 
+	if not cursor:
+		values = ''
+	else:
+		for row in cursor:
+			values.append(row[0])
+		print "Operation done successfully";
+
 	conn.close()
-
-	print "Operation done successfully";
 
 	return values
 		
 def get_first_wall_name():
 
 	values = []
-	conn = sqlite3.connect('data.db')
+	conn = sqlite3.connect('./data/data.db')
 	cursor = conn.execute("SELECT name from WALL")
 
-	for row in cursor:
-		values.append(row[0]) 
+	if not cursor:
+		values = ''
+	else :
+		for row in cursor:
+			values.append( row[0] )
+		print ("Operation done successfully")
 	conn.close()
-
-	print "Operation done successfully";
-	return values[0]	
+	return values[0]
