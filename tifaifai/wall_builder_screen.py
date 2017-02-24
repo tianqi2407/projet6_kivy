@@ -16,12 +16,10 @@ class Wall(BoxLayout):
 		self.wall_name = wall_name
 		self.screenList = []
 
-	def save(self, withScreens):
+	def save(self):
 		global conn
 		conn.execute("INSERT INTO WALL (NAME) VALUES ('" + self.wall_name + "')")
 		conn.commit()
-		if withScreens:
-			print "avec écrans svp"
 
 	def disableButton(self, bouton):
 		i = 0
@@ -32,8 +30,10 @@ class Wall(BoxLayout):
 				self.remove_widget(self.screenList[i])
 			i += 1
 
-	def addScreen(self, bouton):
-		self.screenList.append(bouton)
+	def addScreen(self, bouton, name):
+		self.screenList.append(name)
+		for screen in self.screenList:
+			print(screen)
 		bouton.bind(on_press=self.disableButton)
 
 
@@ -151,8 +151,8 @@ def display_screen(self, name):
 
 	btn = Button(id=name, text=name, width=150, size_hint=(None, 0.20), pos=(x, y))
 	self.ids.ici.add_widget(btn)
-	wall.addScreen(btn)
-
+	#wall.addScreen(btn)
+	wall.addScreen(btn,name)
 
 ########################################################
 
@@ -183,17 +183,49 @@ def get_first_wall_name():
 
 def newWall(name):
 	global wall
+	global conn
 	wall = Wall(name)
+	conn.execute("INSERT INTO WALL (NAME) VALUES ('" + name + "')")
+	conn.commit()
+	print name
+	
 
 
-def save_wall(self):
-	print "validation"
-	avec = False
+#def save_wall(self):
+	#print "validation"
+	#avec = False
+	#if wall.screenList != []:
+		#avec = True
+	#wall.save(avec)
+	
+def save_screen_list(self):
+	save_screens_with_wall(wall)
+
+def save_screens_with_wall(wall):
+	print "validation save_screen_with_wall"
+	for screen in wall.screenList:
+		print(screen)
+	global conn
+	if wall.wall_name != None:
+		cursor = conn.execute("SELECT ID FROM WALL WHERE NAME = '" + wall.wall_name + "'")
+		if cursor != None:
+			for row in cursor:
+				wall_id = row[0]
+				print wall.wall_name
+				print wall_id
 	if wall.screenList != []:
-		avec = True
-	wall.save(avec)
-
-
+		for screen in wall.screenList:
+			position = 0
+			cursor = conn.execute("SELECT ID FROM SCREEN WHERE DISPLAYED_SIZE = '" + screen + "'")
+			if cursor != None:
+				for row in cursor:
+					screen_id = row[0]
+					print screen_id
+					comm = "INSERT INTO WALL_HAS_SCREEN (SCREEN_ID,WALL_ID,POSITION) VALUES (" + str(screen_id) + ", " + str(wall_id) +  ", " + str(position) + ")"
+					print comm
+					cursor = conn.execute(comm)
+					conn.commit()
+			position = position + 1
 ########################################################
 
 def openDB():
