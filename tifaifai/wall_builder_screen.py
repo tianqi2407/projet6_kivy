@@ -213,9 +213,9 @@ def save_screens_with_wall(wall):
 				wall_id = row[0]
 				print wall.wall_name
 				print wall_id
+	position = 0
 	if wall.screenList != []:
 		for screen in wall.screenList:
-			position = 0
 			cursor = conn.execute("SELECT ID FROM SCREEN WHERE DISPLAYED_SIZE = '" + screen + "'")
 			if cursor != None:
 				for row in cursor:
@@ -225,7 +225,7 @@ def save_screens_with_wall(wall):
 					print comm
 					cursor = conn.execute(comm)
 					conn.commit()
-			position = position + 1
+				position += 1
 ########################################################
 
 def openDB():
