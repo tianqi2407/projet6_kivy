@@ -1,14 +1,9 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.graphics import *
-from kivy.core.text import Label as CoreLabel
+from kivy.uix.button import Button
 import random
 import sqlite3
 import os
 
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.popup import Popup
-from kivy.uix.textinput import TextInput
 
 conn = sqlite3.connect( './data/data.db' )
 
@@ -59,6 +54,9 @@ def save_screen(displayed, height, width):
 	screen.build(displayed, height, width)
 	screen.save()
 
+def save_wall(self):
+	print "validation"
+	print self.ids.ici.ids
 
 ########################################################
 
@@ -135,9 +133,7 @@ def display_screen(self, name):
 	x = int(self.ids.ici.x + (random.randint(150, int(self.ids.ici.size[0] - 1)) - 150 ))
 	y = int(self.ids.ici.y + (random.randint(100, int(self.ids.ici.size[1] - 1)) - 100 ))
 
-	with self.canvas:
-		btn = Button(text=name, size=(150.,100.), pos=(x,y))
-	# btn.bind(on_press=disableButton(btn))
+	self.ids.ici.add_widget(Button(id=name, text=name, width=150, size_hint=(None,0.20), pos=(x,y)))
 
 
 ########################################################

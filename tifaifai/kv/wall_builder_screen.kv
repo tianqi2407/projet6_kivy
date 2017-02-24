@@ -41,17 +41,16 @@ RootWidget:
 				text: "Validate"
 				height: 40
 				on_release:
-					app.next_screen('scenary')
+					wbs.save_wall(root)
 
         StackLayout:
             id: ici
             size_hint_y: .7
             size_hint_x: .95
-            canvas:
+            canvas.before:
                 Color:
                     rgba: 1,1,1,1
                 Rectangle:
-                    id: rectangle
                     size: self.size
                     pos: self.pos
 
