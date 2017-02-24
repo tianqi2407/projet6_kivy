@@ -38,10 +38,11 @@ RootWidget:
 			Button:
 				size_hint: None, None
 				pos_hint: {'top': 1 ,'right': 1}
-				text: "Validate"
+				text: "Save Wall"
 				height: 40
 				on_release:
 					wbs.save_wall(root)
+					app.next_screen('wall')
 
         StackLayout:
             id: ici

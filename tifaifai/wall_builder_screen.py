@@ -1,21 +1,40 @@
+# coding=utf-8
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 import random
 import sqlite3
 import os
 
+conn = sqlite3.connect('./data/data.db')
+wall = None
 
-conn = sqlite3.connect( './data/data.db' )
 
 ############################### Classes ###############################
 class Wall(BoxLayout):
-	def build(self, wall_name):
+	def __init__(self, wall_name, **kwargs):
+		super(Wall, self).__init__(**kwargs)
 		self.wall_name = wall_name
+		self.screenList = []
 
-	def save(self):
+	def save(self, withScreens):
 		global conn
-		conn.execute("INSERT INTO WALL (NAME) VALUES ("+self.wall_name+")")
+		conn.execute("INSERT INTO WALL (NAME) VALUES ('" + self.wall_name + "')")
 		conn.commit()
+		if withScreens:
+			print "avec écrans svp"
+
+	def disableButton(self, bouton):
+		i = 0
+		for b in self.screenList:
+			if b.text == bouton.text and b.pos == bouton.pos:
+				print b.text
+				print b.pos
+				self.remove_widget(self.screenList[i])
+			i += 1
+
+	def addScreen(self, bouton):
+		self.screenList.append(bouton)
+		bouton.bind(on_press=self.disableButton)
 
 
 class Scenary(BoxLayout):
@@ -25,7 +44,7 @@ class Scenary(BoxLayout):
 
 	def save(self):
 		global conn
-		conn.execute("INSERT INTO SCENARIO (WALL_ID,NAME) VALUES ("+self.wall_id+", "+self.scenary_name+")")
+		conn.execute("INSERT INTO SCENARIO (WALL_ID,NAME) VALUES (" + self.wall_id + ", " + self.scenary_name + ")")
 		conn.commit()
 
 
@@ -37,8 +56,9 @@ class Screen(BoxLayout):
 
 	def save(self):
 		global conn
-		conn.execute("INSERT INTO SCREEN (DISPLAYED_SIZE,HEIGHT,WIDTH) VALUES ('"+str(self.displayed)+"', '"+str(self.height)+"', '"+str(self.width)+"')")
-		conn.commit() # je t'aime commit <3
+		conn.execute("INSERT INTO SCREEN (DISPLAYED_SIZE,HEIGHT,WIDTH) VALUES ('" + str(self.displayed) + "', '" + str(
+			self.height) + "', '" + str(self.width) + "')")
+		conn.commit()  # je t'aime commit <3
 
 
 def display_all():
@@ -54,22 +74,19 @@ def save_screen(displayed, height, width):
 	screen.build(displayed, height, width)
 	screen.save()
 
-def save_wall(self):
-	print "validation"
-	print self.ids.ici.ids
 
 ########################################################
 
 def get_all_screen_name():
 	values = []
 	global conn
-	cursor = conn.execute( "SELECT DISPLAYED_SIZE FROM SCREEN" )
+	cursor = conn.execute("SELECT DISPLAYED_SIZE FROM SCREEN")
 
 	if not cursor:
 		values = ''
 	else:
 		for row in cursor:
-			values.append( row[0] )
+			values.append(row[0])
 		print ("Operation done successfully")
 	return values
 
@@ -77,13 +94,13 @@ def get_all_screen_name():
 def get_first_screen_name():
 	values = []
 	global conn
-	cursor = conn.execute( "SELECT DISPLAYED_SIZE FROM SCREEN" )
+	cursor = conn.execute("SELECT DISPLAYED_SIZE FROM SCREEN")
 
 	if not cursor:
 		values = ''
-	else :
+	else:
 		for row in cursor:
-			values.append( row[0] )
+			values.append(row[0])
 		print ("Operation done successfully")
 	return values[0]
 
@@ -91,7 +108,7 @@ def get_first_screen_name():
 def get_height(name):
 	global conn
 	chaine = []
-	cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+	cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '" + name + "'")
 	if not cursor:
 		chaine = name
 	else:
@@ -103,7 +120,7 @@ def get_height(name):
 def get_width(name):
 	global conn
 	chaine = []
-	cursor = conn.execute("SELECT width FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+	cursor = conn.execute("SELECT width FROM SCREEN WHERE DISPLAYED_SIZE = '" + name + "'")
 	if not cursor:
 		chaine = name
 	else:
@@ -114,26 +131,27 @@ def get_width(name):
 
 def delete_screen(name):
 	global conn
-	conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+	conn.execute("DELETE FROM SCREEN WHERE DISPLAYED_SIZE = '" + name + "'")
 	conn.commit()
 
-def disableButton(b):
-	b.disabled = True
 
 def display_screen(self, name):
 	global conn
+	global wall
 	chaine = []
-	cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '"+ name +"'")
+	cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '" + name + "'")
 	if not cursor:
 		chaine = name
 	else:
 		for row in cursor:
 			chaine.append(row[0])
 
-	x = int(self.ids.ici.x + (random.randint(150, int(self.ids.ici.size[0] - 1)) - 150 ))
-	y = int(self.ids.ici.y + (random.randint(100, int(self.ids.ici.size[1] - 1)) - 100 ))
+	x = int(self.ids.ici.x + (random.randint(150, int(self.ids.ici.size[0] - 1)) - 150))
+	y = int(self.ids.ici.y + (random.randint(100, int(self.ids.ici.size[1] - 1)) - 100))
 
-	self.ids.ici.add_widget(Button(id=name, text=name, width=150, size_hint=(None,0.20), pos=(x,y)))
+	btn = Button(id=name, text=name, width=150, size_hint=(None, 0.20), pos=(x, y))
+	self.ids.ici.add_widget(btn)
+	wall.addScreen(btn)
 
 
 ########################################################
@@ -142,24 +160,39 @@ def display_screen(self, name):
 def get_all_wall_name():
 	values = []
 	global conn
-	cursor = conn.execute( "SELECT name from WALL" )
+	cursor = conn.execute("SELECT name from WALL")
 
 	for row in cursor:
-		values.append( row[0] )
-	conn.close( )
+		values.append(row[0])
+	conn.close()
 	print ("Operation done successfully")
 	return values
+
 
 def get_first_wall_name():
 	values = []
 	global conn
-	cursor = conn.execute( "SELECT name from WALL" )
+	cursor = conn.execute("SELECT name from WALL")
 
 	for row in cursor:
-		values.append( row[0] )
-	conn.close( )
+		values.append(row[0])
+	conn.close()
 	print ("Operation done successfully")
 	return values[0]
+
+
+def newWall(name):
+	global wall
+	wall = Wall(name)
+
+
+def save_wall(self):
+	print "validation"
+	avec = False
+	if wall.screenList != []:
+		avec = True
+	wall.save(avec)
+
 
 ########################################################
 
@@ -167,10 +200,12 @@ def openDB():
 	global conn
 	print "Opened database successfully"
 
+
 def closeDB():
 	global conn
 	conn.close()
 	print "Closing database successfully"
+
 
 def startDB():
 	os.system('python ./data/sql.py')

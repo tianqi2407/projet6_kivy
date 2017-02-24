@@ -1,6 +1,7 @@
 #:kivy 1.8.0
 #:import datetime datetime
 #:import wal wall
+#:import wbs wall_builder_screen
 
 RootWidget:
     # import container
@@ -21,18 +22,27 @@ RootWidget:
             size_hint: .5, None
 			height: 100
 			pos_hint: {'center_x': .5}
-			orientation: 'vertical'
 
-            # weiter button
-			Button:
-				text: 'add (wall builder)'
-				on_release: app.next_screen('wall_builder_screen')
-			Spinner:
-				id: spinner
-				values: wal.get_all_wall_name()
-				text: wal.get_first_wall_name()
-			Button:
-				text: 'Previous screen'
-            Button:
-                text: 'Next screen'
-                on_release: app.next_screen('scenary')
+
+			BoxLayout:
+                TextInput:
+                    id: wallName
+                Button:
+                    text: 'Add a new Wall'
+                    on_release:
+                        app.next_screen('wall_builder_screen')
+                        wbs.newWall(wallName.text)
+
+
+            BoxLayout:
+                Spinner:
+                    id: spinner
+                    values: wal.get_all_wall_name()
+                    text: wal.get_first_wall_name()
+
+#            BoxLayout:
+#                Button:
+#                    text: 'Previous screen'
+#                Button:
+#                    text: 'Next screen'
+#                    on_release: app.next_screen('scenary')
