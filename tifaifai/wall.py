@@ -1,6 +1,9 @@
+# coding=utf-8
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+import random
 import sqlite3
 import os
-
 
 def get_all_wall_name():
 

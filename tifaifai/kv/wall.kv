@@ -19,6 +19,7 @@ RootWidget:
 			font_size: '30sp'
 		
         BoxLayout:
+			orientation: 'vertical'
             size_hint: .5, None
 			height: 100
 			pos_hint: {'center_x': .5}
@@ -39,7 +40,12 @@ RootWidget:
                     id: spinner
                     values: wal.get_all_wall_name()
                     text: wal.get_first_wall_name()
-
+				Button:
+                    text: 'show this wall'
+					on_release:
+						wbs.getWallName(spinner.text)
+						wbs.getScreensByWall()
+						app.next_screen('wall_builder_screen')
 #            BoxLayout:
 #                Button:
 #                    text: 'Previous screen'

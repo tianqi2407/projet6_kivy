@@ -79,6 +79,12 @@ RootWidget:
                     text: "Display"
                     on_release:
                         wbs.display_screen(root, spinner.text)
+				Button:
+                    text: "Load"
+                    on_release:
+                        wbs.setScreens(root)
+						self.background_color = (1.0, 0.0, 0.0, 1.0)
+						self.text = "already loaded"
                 Button:
                     text: "DELETE"
                     on_release:

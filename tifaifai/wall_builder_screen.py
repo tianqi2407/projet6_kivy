@@ -153,7 +153,23 @@ def display_screen(self, name):
 	self.ids.ici.add_widget(btn)
 	#wall.addScreen(btn)
 	wall.addScreen(btn,name)
+	
+def display_screen_wall(self, name):
+	global conn
+	global wall
+	chaine = []
+	cursor = conn.execute("SELECT height FROM SCREEN WHERE DISPLAYED_SIZE = '" + name + "'")
+	if not cursor:
+		chaine = name
+	else:
+		for row in cursor:
+			chaine.append(row[0])
 
+	x = int(self.ids.ici.x + (random.randint(150, int(self.ids.ici.size[0] - 1)) - 150))
+	y = int(self.ids.ici.y + (random.randint(100, int(self.ids.ici.size[1] - 1)) - 100))
+
+	btn = Button(id=name, text=name, width=150, size_hint=(None, 0.20), pos=(x, y))
+	self.ids.ici.add_widget(btn)
 ########################################################
 
 
@@ -226,8 +242,47 @@ def save_screens_with_wall(wall):
 					cursor = conn.execute(comm)
 					conn.commit()
 				position += 1
+				
+def getWallName(name):
+	global wall
+	global conn
+	wall = Wall(name)
+	
+	
+def getScreensByWall():
+	global conn
+	if wall.wall_name != None:
+		cursor = conn.execute("SELECT ID FROM WALL WHERE NAME = '" + wall.wall_name + "'")
+		if cursor != None:
+			for row in cursor:
+				wall_id = row[0]
+				print wall.wall_name
+				print wall_id
+				comm = "SELECT SCREEN_ID,POSITION FROM WALL_HAS_SCREEN WHERE WALL_ID = " + str(wall_id)
+				print comm
+				cursor = conn.execute(comm)
+				if cursor != None:
+					for row in cursor:
+						screen_id = row[0]
+						position = row[1]
+						print screen_id
+						print position
+						if screen_id != None:
+							cursor2 = conn.execute("SELECT DISPLAYED_SIZE FROM SCREEN WHERE ID =  " + str(screen_id))
+							if cursor2 != None:
+								for row in cursor2:
+									print row[0]
+									wall.screenList.insert(position,row[0])
+						print "les ecrans avec " + wall.wall_name
+						for screen in wall.screenList:
+							print(screen)
 ########################################################
 
+def setScreens(self):
+	if wall.screenList != []:
+		for screen in wall.screenList:
+			display_screen_wall(self, screen)
+	
 def openDB():
 	global conn
 	print "Opened database successfully"
