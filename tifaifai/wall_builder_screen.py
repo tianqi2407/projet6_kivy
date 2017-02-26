@@ -15,6 +15,7 @@ class Wall(BoxLayout):
 		super(Wall, self).__init__(**kwargs)
 		self.wall_name = wall_name
 		self.screenList = []
+		self.loadScreenList = []
 
 	def save(self):
 		global conn
@@ -229,7 +230,22 @@ def save_screens_with_wall(wall):
 				wall_id = row[0]
 				print wall.wall_name
 				print wall_id
-	position = 0
+	#pour eviter les doublons
+	if wall.loadScreenList != []:
+		position = len(wall.loadScreenList)
+		#position = 0
+		i = len(wall.loadScreenList)
+		while i!=0:
+			elem1=wall.loadScreenList[i-1]
+			elem2=wall.screenList[i-1]
+			print "i = " + str(i)
+			print "length screenlist = " + str(len(wall.screenList))
+			print "length loadscreenlist = " + str(len(wall.loadScreenList))
+			wall.loadScreenList.remove(elem1)
+			wall.screenList.remove(elem2)
+			i = i - 1
+	else:
+		position = 0
 	if wall.screenList != []:
 		for screen in wall.screenList:
 			cursor = conn.execute("SELECT ID FROM SCREEN WHERE DISPLAYED_SIZE = '" + screen + "'")
@@ -273,6 +289,7 @@ def getScreensByWall():
 								for row in cursor2:
 									print row[0]
 									wall.screenList.insert(position,row[0])
+									wall.loadScreenList.insert(position,row[0])
 						print "les ecrans avec " + wall.wall_name
 						for screen in wall.screenList:
 							print(screen)
